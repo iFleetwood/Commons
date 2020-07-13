@@ -1,0 +1,4 @@
+name: Commons
+version: ${project.version}
+main: cc.kasumi.commons.Commons
+depend: [ProtocolLib]
