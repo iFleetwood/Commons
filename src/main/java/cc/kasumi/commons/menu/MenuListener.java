@@ -1,10 +1,10 @@
-package menu;
+package cc.kasumi.commons.menu;
 
 import cc.kasumi.commons.Commons;
 import cc.kasumi.commons.util.ItemStackUtil;
 import cc.kasumi.commons.util.KListener;
-import menu.type.MultiViewerMenu;
-import menu.type.ScrollerMenu;
+import cc.kasumi.commons.menu.type.MultiViewerMenu;
+import cc.kasumi.commons.menu.type.ScrollerMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -63,14 +63,14 @@ public class MenuListener extends KListener {
 
         menus.remove(playerUUID);
 
-        // Checking if the page is switching, if it isn't delete user from scroller menu
+        // Checking if the page is switching, if it isn't delete user from scroller cc.kasumi.commons.menu
         if (scrollerMenus.containsKey(playerUUID)) {
             if (!scrollerMenus.get(playerUUID).isSwitchingPage()) {
                 scrollerMenus.remove(playerUUID);
             }
         }
 
-        // If player is closing down a multi viewer menu, remove the player from viewers
+        // If player is closing down a multi viewer cc.kasumi.commons.menu, remove the player from viewers
         for (Menu menu : menus.values()) {
             if (!(menu instanceof MultiViewerMenu)) continue;
             MultiViewerMenu multiViewerMenu = (MultiViewerMenu) menu;

@@ -1,7 +1,7 @@
-package menu;
+package cc.kasumi.commons.menu;
 
 import lombok.Getter;
-import menu.type.ScrollerMenu;
+import cc.kasumi.commons.menu.type.ScrollerMenu;
 
 import java.util.*;
 

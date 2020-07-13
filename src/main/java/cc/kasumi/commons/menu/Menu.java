@@ -1,4 +1,4 @@
-package menu;
+package cc.kasumi.commons.menu;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class Menu {
     private int size;
 
     /*
-    When the player opens the menu update all the items!
+    When the player opens the cc.kasumi.commons.menu update all the items!
      */
 
     public Menu(UUID uuid, String title, int size) {

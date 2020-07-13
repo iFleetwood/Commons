@@ -1,4 +1,4 @@
-package menu;
+package cc.kasumi.commons.menu;
 
 import cc.kasumi.commons.util.ClickHandler;
 import lombok.AllArgsConstructor;

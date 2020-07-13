@@ -8,8 +8,7 @@ import com.comphenix.protocol.ProtocolManager;
 
 import lombok.Getter;
 
-import menu.MenuHandler;
-import menu.MenuListener;
+import cc.kasumi.commons.menu.MenuListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter

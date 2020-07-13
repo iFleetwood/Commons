@@ -1,18 +1,12 @@
-package menu.type;
+package cc.kasumi.commons.menu.type;
 
-import cc.kasumi.commons.Commons;
-import cc.kasumi.commons.inventory.Button;
-import cc.kasumi.commons.inventory.scroller.Page;
 import cc.kasumi.commons.util.ItemBuilder;
-import com.google.common.collect.Iterators;
 import lombok.Getter;
 import lombok.Setter;
-import menu.InventorySlot;
-import org.bukkit.Bukkit;
+import cc.kasumi.commons.menu.InventorySlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 

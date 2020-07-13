@@ -1,15 +1,13 @@
-package menu.type;
+package cc.kasumi.commons.menu.type;
 
 import cc.kasumi.commons.util.PlayerUtil;
 import lombok.Getter;
-import menu.InventorySlot;
-import menu.Menu;
+import cc.kasumi.commons.menu.InventorySlot;
+import cc.kasumi.commons.menu.Menu;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
