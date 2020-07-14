@@ -42,7 +42,7 @@ public class MenuListener extends KListener {
 
         // Making it far more efficient!
         if (scrollerMenus.containsKey(playerUUID)) {
-            click(event, scrollerMenus.get(playerUUID).getCurrentPage().getInventorySlots());
+            click(event, scrollerMenus.get(playerUUID).getInventorySlots());
 
             return;
         }

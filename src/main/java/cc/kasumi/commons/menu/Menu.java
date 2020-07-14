@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Menu {
+public class Menu implements IMenu {
 
     private Map<Integer, InventorySlot> inventorySlots = new HashMap<>();
 
@@ -21,7 +21,7 @@ public class Menu {
     private int size;
 
     /*
-    When the player opens the cc.kasumi.commons.menu update all the items!
+    When the player opens the menu update all the items!
      */
 
     public Menu(UUID uuid, String title, int size) {
@@ -42,6 +42,7 @@ public class Menu {
         }
     }
 
+    @Override
     public Inventory open(Player player) {
         Inventory inventory = Bukkit.createInventory(null, getSize(), getTitle());
 

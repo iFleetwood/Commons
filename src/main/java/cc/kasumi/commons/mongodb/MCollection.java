@@ -1,7 +1,9 @@
 package cc.kasumi.commons.mongodb;
 
 import cc.kasumi.commons.Commons;
+import cc.kasumi.commons.framework.Command;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import lombok.Getter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -35,6 +37,16 @@ public class MCollection {
     }
      */
 
+    public void getDocumentCursorAsync(final FindCursorCallback callback) {
+        Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
+            final MongoCursor<Document> result = getDocumentCursor();
+
+            Bukkit.getScheduler().runTask(Commons.getInstance(), () -> {
+                callback.onQueryDone(result);
+            });
+        });
+    }
+
     public void getDocumentAsync(Document key, final FindOneCallback callback) {
         Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
             final Document result = getDocument(key);
@@ -55,6 +67,10 @@ public class MCollection {
         Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
             updateDocument(key, updated);
         });
+    }
+
+    public MongoCursor<Document> getDocumentCursor() {
+        return collection.find().cursor();
     }
 
     public Document getDocument(Document key) {

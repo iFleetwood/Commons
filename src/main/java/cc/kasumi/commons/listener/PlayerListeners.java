@@ -22,6 +22,7 @@ public class PlayerListeners extends KListener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
         Location from = event.getFrom();
         Location to = event.getTo();
         Block fromBlock = from.getBlock();
@@ -31,7 +32,7 @@ public class PlayerListeners extends KListener {
             return;
         }
 
-        PlayerBlockMoveEvent playerBlockMoveEvent = new PlayerBlockMoveEvent(event, fromBlock, toBlock);
+        PlayerBlockMoveEvent playerBlockMoveEvent = new PlayerBlockMoveEvent(player, from, to);
         Bukkit.getPluginManager().callEvent(playerBlockMoveEvent);
     }
 

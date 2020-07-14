@@ -1,7 +1,7 @@
 package cc.kasumi.commons.menu.type;
 
-import lombok.Getter;
 import cc.kasumi.commons.menu.Menu;
+import lombok.Getter;
 
 import java.util.UUID;
 

@@ -1,5 +1,6 @@
 package cc.kasumi.commons.menu.type;
 
+import cc.kasumi.commons.menu.IMenu;
 import cc.kasumi.commons.util.ItemBuilder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +8,12 @@ import cc.kasumi.commons.menu.InventorySlot;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.*;
 
 @Getter
-public class ScrollerMenu {
+public class ScrollerMenu implements IMenu {
 
     private final List<ScrollerPage> pages = new ArrayList<>();
 
@@ -109,6 +111,16 @@ public class ScrollerMenu {
         getCurrentPage().open(player);
 
         switchingPage = false;
+    }
+
+    @Override
+    public Map<Integer, InventorySlot> getInventorySlots() {
+        return pages.get(currentPage).getInventorySlots();
+    }
+
+    @Override
+    public Inventory open(Player player) {
+        return pages.get(currentPage).open(player);
     }
 
     public enum PageSwitch {
