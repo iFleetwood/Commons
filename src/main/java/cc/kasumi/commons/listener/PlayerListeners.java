@@ -20,6 +20,7 @@ public class PlayerListeners extends KListener {
         super(Commons.getInstance());
     }
 
+    /*
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
@@ -35,6 +36,7 @@ public class PlayerListeners extends KListener {
         PlayerBlockMoveEvent playerBlockMoveEvent = new PlayerBlockMoveEvent(player, from, to);
         Bukkit.getPluginManager().callEvent(playerBlockMoveEvent);
     }
+     */
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {

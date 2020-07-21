@@ -4,9 +4,13 @@ import cc.kasumi.commons.Commons;
 import cc.kasumi.commons.framework.Command;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import lombok.Getter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+
+import java.util.concurrent.CompletableFuture;
 
 @Getter
 public class MCollection {
@@ -37,6 +41,7 @@ public class MCollection {
     }
      */
 
+    @Deprecated
     public void getDocumentCursorAsync(final FindCursorCallback callback) {
         Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
             final MongoCursor<Document> result = getDocumentCursor();
@@ -47,6 +52,7 @@ public class MCollection {
         });
     }
 
+    @Deprecated
     public void getDocumentAsync(Document key, final FindOneCallback callback) {
         Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
             final Document result = getDocument(key);
@@ -57,16 +63,23 @@ public class MCollection {
         });
     }
 
+    //
+
+    public CompletableFuture<MongoCursor<Document>> getDocumentCursorAsync() {
+        return CompletableFuture.supplyAsync(this::getDocumentCursor);
+    }
+
+    public CompletableFuture<Document> getDocumentAsync(Document key) {
+        return CompletableFuture.supplyAsync(() -> getDocument(key));
+    }
+
+    @Deprecated
     public void setDocumentAsync(Document document) {
-        Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
-            setDocument(document);
-        });
+        CompletableFuture.runAsync(() -> setDocument(document));
     }
 
     public void updateDocumentAsync(Document key, Document updated) {
-        Bukkit.getScheduler().runTaskAsynchronously(Commons.getInstance(), () -> {
-            updateDocument(key, updated);
-        });
+        CompletableFuture.runAsync(() -> updateDocument(key, updated));
     }
 
     public MongoCursor<Document> getDocumentCursor() {
@@ -77,6 +90,7 @@ public class MCollection {
         return collection.find(key).first();
     }
 
+    @Deprecated
     public void setDocument(Document document) {
         collection.insertOne(document);
     }
@@ -90,6 +104,6 @@ public class MCollection {
             return;
         }
 
-        collection.updateOne(key, new Document("$set", updated));
+        collection.replaceOne(key, updated, new ReplaceOptions().upsert(true));
     }
 }

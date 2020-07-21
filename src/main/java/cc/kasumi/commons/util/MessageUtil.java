@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class MessageUtil {
 
     public static String color(String message) {
@@ -28,6 +30,26 @@ public class MessageUtil {
                 player.sendMessage(message);
             }
         }
+    }
+
+    public static String getFormattedString(List<String> strings) {
+        StringBuilder builder = new StringBuilder();
+
+        int i = 1;
+        for (String string : strings) {
+            builder.append(string);
+
+            if (i < strings.size()) {
+                builder.append(", ");
+            } else {
+                builder.append(".");
+            }
+
+
+            i++;
+        }
+
+        return builder.toString();
     }
 
     public static String messageBuilder(int startArg, String[] args) {

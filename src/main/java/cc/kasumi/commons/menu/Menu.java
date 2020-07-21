@@ -5,53 +5,47 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Setter
-public class Menu implements IMenu {
+public class Menu implements InventoryHolder {
 
-    private Map<Integer, InventorySlot> inventorySlots = new HashMap<>();
+    @Setter
+    private List<InventoryButton> buttons;
 
-    private final UUID uuid;
-    private String title;
     private int size;
+    private String title;
 
-    /*
-    When the player opens the menu update all the items!
-     */
-
-    public Menu(UUID uuid, String title, int size) {
-        this.uuid = uuid;
-        this.title = title;
+    public Menu(int size, String title) {
         this.size = size;
-
-        MenuHandler.addMenu(this);
+        this.title = title;
+        this.buttons = new ArrayList<>();
     }
 
-    public Menu(UUID uuid, String title, int size, boolean scrollerMenu) {
-        this.uuid = uuid;
-        this.title = title;
-        this.size = size;
-
-        if (!scrollerMenu) {
-            MenuHandler.addMenu(this);
-        }
+    public Menu(int size, String title, List<InventoryButton> buttons) {
+        this(size, title);
+        this.buttons = buttons;
     }
 
-    @Override
     public Inventory open(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, getSize(), getTitle());
-
-        for (InventorySlot inventorySlot : getInventorySlots().values()) {
-            inventory.setItem(inventorySlot.getSlot(), inventorySlot.getItemStack());
-        }
+        Inventory inventory = getInventory();
 
         player.openInventory(inventory);
         player.updateInventory();
+
+        return inventory;
+    }
+
+    @Override
+    public Inventory getInventory() {
+        Inventory inventory = Bukkit.createInventory(null, size, title);
+
+        for (InventoryButton button : buttons) {
+            inventory.setItem(button.getIndex(), button.getItemStack());
+        }
 
         return inventory;
     }
