@@ -41,7 +41,7 @@ public class Menu implements InventoryHolder {
 
     @Override
     public Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(null, size, title);
+        Inventory inventory = Bukkit.createInventory(this, size, title);
 
         for (InventoryButton button : buttons) {
             inventory.setItem(button.getIndex(), button.getItemStack());

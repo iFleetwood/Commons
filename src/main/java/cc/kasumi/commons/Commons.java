@@ -1,5 +1,6 @@
 package cc.kasumi.commons;
 
+import cc.kasumi.commons.listener.InventoryListener;
 import cc.kasumi.commons.listener.PlayerListeners;
 import cc.kasumi.commons.util.EntityHider;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -33,6 +34,7 @@ public final class Commons extends JavaPlugin {
         entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
 
         new PlayerListeners();
+        new InventoryListener();
     }
 
     @Override
