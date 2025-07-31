@@ -24,7 +24,7 @@ public class MessageUtil {
         return translateRaw(message, target , Integer.toString(replacement));
     }
 
-    public static void sendStaffMessage(String message, String permission) {
+    public static void sendMessage(String message, String permission) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.hasPermission(permission)) {
                 player.sendMessage(message);

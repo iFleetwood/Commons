@@ -27,6 +27,11 @@ public class BukkitReflection {
 
     private static final Class CRAFT_ITEM_STACK_CLASS;
     private static final Method CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD;
+    private static final Class ENTITY_ITEM_STACK_CLASS;
+    private static final Method ENTITY_ITEM_STACK_GET_NAME;
+
+    private static final Class SPIGOT_CONFIG_CLASS;
+    private static final Field SPIGOT_CONFIG_BUNGEE_FIELD;
 
     static {
         try {
@@ -52,8 +57,16 @@ public class BukkitReflection {
             ENTITY_PLAYER_PING_FIELD.setAccessible(true);
 
             CRAFT_ITEM_STACK_CLASS = Class.forName(CRAFT_BUKKIT_PACKAGE + "inventory.CraftItemStack");
-            CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD = CRAFT_ITEM_STACK_CLASS.getDeclaredMethod("asNMSCopy", ItemStack.class);
+            CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD =
+                    CRAFT_ITEM_STACK_CLASS.getDeclaredMethod("asNMSCopy", ItemStack.class);
             CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD.setAccessible(true);
+
+            ENTITY_ITEM_STACK_CLASS = Class.forName(NET_MINECRAFT_SERVER_PACKAGE + "ItemStack");
+            ENTITY_ITEM_STACK_GET_NAME = ENTITY_ITEM_STACK_CLASS.getDeclaredMethod("getName");
+
+            SPIGOT_CONFIG_CLASS = Class.forName("org.spigotmc.SpigotConfig");
+            SPIGOT_CONFIG_BUNGEE_FIELD = SPIGOT_CONFIG_CLASS.getDeclaredField("bungee");
+            SPIGOT_CONFIG_BUNGEE_FIELD.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -65,9 +78,9 @@ public class BukkitReflection {
         try {
             int ping = ENTITY_PLAYER_PING_FIELD.getInt(CRAFT_PLAYER_GET_HANDLE_METHOD.invoke(player));
 
-            return Math.max(ping, 0);
+            return ping > 0 ? ping : 0;
         } catch (Exception e) {
-            return -1;
+            return 1;
         }
     }
 
@@ -81,10 +94,19 @@ public class BukkitReflection {
 
     public static String getItemStackName(ItemStack itemStack) {
         try {
-            return (String) CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD.invoke(itemStack, itemStack);
+            return (String) ENTITY_ITEM_STACK_GET_NAME.invoke(CRAFT_ITEM_STACK_AS_NMS_COPY_METHOD.invoke(itemStack, itemStack));
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "";
+        }
+    }
+
+    public static boolean isBungeeServer() {
+        try {
+            return (boolean) SPIGOT_CONFIG_BUNGEE_FIELD.get(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

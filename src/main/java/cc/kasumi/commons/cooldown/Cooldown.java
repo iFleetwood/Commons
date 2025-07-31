@@ -1,28 +1,41 @@
 package cc.kasumi.commons.cooldown;
 
-import lombok.Getter;
-import lombok.Setter;
+import cc.kasumi.commons.util.TimeUtil;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Cooldown {
 
-    private long start, length;
+	private long start = System.currentTimeMillis();
+	private long expire;
+	private boolean notified;
 
-    public Cooldown(long length) {
-        this.length = length;
-    }
+	public Cooldown(long duration) {
+		this.expire = this.start + duration;
 
-    public Cooldown(long length, long start) {
-        this.length = length;
-        this.start = start;
-    }
+		if (duration == 0) {
+			this.notified = true;
+		}
+	}
 
-    public boolean isActive() {
-        return start + length >= System.currentTimeMillis();
-    }
+	public long getPassed() {
+		return System.currentTimeMillis() - this.start;
+	}
 
-    public long getTimeRemaining() {
-        return start + length - System.currentTimeMillis();
-    }
+	public long getRemaining() {
+		return this.expire - System.currentTimeMillis();
+	}
+
+	public boolean hasExpired() {
+		return System.currentTimeMillis() - this.expire >= 0;
+	}
+
+	public String getTimeLeft() {
+		if (this.getRemaining() >= 60_000) {
+			return TimeUtil.millisToRoundedTime(this.getRemaining());
+		} else {
+			return TimeUtil.millisToSeconds(this.getRemaining());
+		}
+	}
+
 }

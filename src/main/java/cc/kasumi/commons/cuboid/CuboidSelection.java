@@ -1,6 +1,6 @@
 package cc.kasumi.commons.cuboid;
 
-import cc.kasumi.commons.util.ItemBuilder;
+import cc.kasumi.commons.util.OldItemBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.ChatColor;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 @AllArgsConstructor
 public class CuboidSelection {
 
-    public static final ItemStack SELECTION_AXE = new ItemBuilder(Material.IRON_AXE, ChatColor.GOLD + "Selection Axe").build();
+    public static final ItemStack SELECTION_AXE = new OldItemBuilder(Material.IRON_AXE, ChatColor.GOLD + "Selection Axe").build();
 
     private int x, y, z;
     private String world;

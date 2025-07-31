@@ -1,44 +1,36 @@
 package cc.kasumi.commons;
 
-import cc.kasumi.commons.listener.InventoryListener;
-import cc.kasumi.commons.listener.PlayerListeners;
-import cc.kasumi.commons.util.EntityHider;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-
+import cc.kasumi.commons.menu.MenuListener;
 import lombok.Getter;
-
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public final class Commons extends JavaPlugin {
 
-    /* TODO:
-    Clean up util package
-    Finish menus
-     */
-
     @Getter
     private static Commons instance;
-
-    private EntityHider entityHider;
-    // private MenuManager menuManager;
-    private ProtocolManager protocolManager;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        // menuManager = new MenuManager(this);
-        protocolManager = ProtocolLibrary.getProtocolManager();
-        entityHider = new EntityHider(this, EntityHider.Policy.BLACKLIST);
-
-        new PlayerListeners();
-        new InventoryListener();
+        registerManagers();
+        registerListeners();;
     }
 
     @Override
     public void onDisable() {
         instance = null;
+    }
+
+    private void registerManagers() {
+
+    }
+
+    private void registerListeners() {
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new MenuListener(), this);
     }
 }

@@ -21,4 +21,12 @@ public class NumberUtil {
 
         return true;
     }
+
+    public static boolean isWithinRange(double value, double minimum, double maximum) {
+        return ((value - maximum) * (value - minimum) <= 0);
+    }
+
+    public static double getRandomDouble(double max, double min) {
+        return ThreadLocalRandom.current().nextDouble(Math.abs(max - min)) + min;
+    }
 }
