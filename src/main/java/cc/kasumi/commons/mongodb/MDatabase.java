@@ -8,12 +8,19 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 
 @Getter
 public class MDatabase {
 
     private MongoDatabase database;
+    
+    static {
+        // Disable MongoDB driver logging - this runs once when the class is loaded
+        disableMongoLogging();
+    }
 
     public MDatabase(String uri, String databaseName) {
         ConnectionString connString = new ConnectionString(uri);
@@ -52,4 +59,15 @@ public class MDatabase {
         });
     }
      */
+    
+    private static void disableMongoLogging() {
+        // Disable all MongoDB driver logging
+        Logger.getLogger("org.mongodb.driver").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.cluster").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.connection").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.management").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.protocol").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.authenticator").setLevel(Level.OFF);
+        Logger.getLogger("org.mongodb.driver.operation").setLevel(Level.OFF);
+    }
 }
