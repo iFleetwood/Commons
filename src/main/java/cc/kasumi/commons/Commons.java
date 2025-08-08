@@ -17,7 +17,7 @@ public final class Commons extends JavaPlugin {
         instance = this;
 
         registerManagers();
-        registerListeners();;
+        registerListeners();
     }
 
     @Override
